@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../Provider/AuthContext';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const ManageFood = () => {
   const { user } = useContext(AuthContext);
@@ -26,22 +27,32 @@ const ManageFood = () => {
       axios
         .get(`http://localhost:3000/manage-food?email=${user.email}`)
         .then((res) => setFoods(res.data))
-        .catch((err) => toast.error('Failed to fetch your foods'))
+        .catch(() => toast.error('Failed to fetch your foods'))
         .finally(() => setLoading(false));
     }
   }, [user]);
 
-  // Handle delete with confirmation
+  // Handle delete with SweetAlert2 confirmation
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this food?')) {
-      axios
-        .delete(`http://localhost:3000/food/${id}`)
-        .then(() => {
-          toast.success('Food deleted successfully');
-          setFoods((prev) => prev.filter((food) => food._id !== id));
-        })
-        .catch(() => toast.error('Failed to delete food'));
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will lose this food data!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3000/food/${id}`)
+          .then(() => {
+            toast.success('Food deleted successfully');
+            setFoods((prev) => prev.filter((food) => food._id !== id));
+          })
+          .catch(() => toast.error('Failed to delete food'));
+      }
+    });
   };
 
   // Open update modal and fill form
@@ -69,6 +80,7 @@ const ManageFood = () => {
   // Submit update
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
+
     axios
       .put(`http://localhost:3000/food/${currentFood._id}`, updateForm)
       .then(() => {
