@@ -15,6 +15,7 @@ import ManageFood from "../Components/ManageFood";
 import axiosSecure from "../Hooks/axiosSecure";
 import MyFoodRequest from "../Components/MyFoodRequest";
 import About from "../Components/About";
+import FeaturedFoods from "../Components/FeaturedFoods";
 
 
 export const router = createBrowserRouter([

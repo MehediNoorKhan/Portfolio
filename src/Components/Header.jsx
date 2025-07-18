@@ -62,7 +62,7 @@ const Header = () => {
                                 />
                             </div>
                             <span
-                                className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 text-sm text-gray-900 opacity-0 group-hover:opacity-100 pointer-events-none select-none transition-opacity duration-300 whitespace-nowrap"
+                                className="absolute left-1/2 transform -translate-x-1/2 top-full mt-3 text-sm text-white z-10 opacity-0 group-hover:opacity-100 pointer-events-none select-none transition-opacity duration-300 whitespace-nowrap"
                                 style={{ backgroundColor: 'transparent' }}
                             >
                                 {currentUser?.name || ''}
