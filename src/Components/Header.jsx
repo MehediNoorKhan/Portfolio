@@ -11,11 +11,8 @@ const Header = () => {
             .catch((error) => console.log(error));
     };
 
-
-
     // Find the user object that matches the logged-in user's email
     const currentUser = userData.find(u => String(u.email) === String(user?.email));
-
 
     const links = (
         <>
@@ -56,14 +53,20 @@ const Header = () => {
             <div className="navbar-end mr-4 flex items-center gap-3">
                 {user ? (
                     <>
-
-                        <div className="avatar">
-                            <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <div className="avatar relative group">
+                            <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
                                 <img
                                     src={currentUser?.photourl || "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"}
                                     alt="User Avatar"
+                                    className="block"
                                 />
                             </div>
+                            <span
+                                className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 text-sm text-gray-900 opacity-0 group-hover:opacity-100 pointer-events-none select-none transition-opacity duration-300 whitespace-nowrap"
+                                style={{ backgroundColor: 'transparent' }}
+                            >
+                                {currentUser?.name || ''}
+                            </span>
                         </div>
                         <button onClick={handlelogout} className="btn btn-md btn-outline text-blue-600">Log out</button>
                     </>
@@ -78,6 +81,7 @@ const Header = () => {
                     </>
                 )}
             </div>
+
         </div>
     );
 };
