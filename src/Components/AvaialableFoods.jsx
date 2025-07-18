@@ -5,21 +5,31 @@ import { useNavigate } from 'react-router';
 const AvailableFoods = () => {
     const [foods, setFoods] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isThreeCol, setIsThreeCol] = useState(true); // Toggle state for layout
+    const [isThreeCol, setIsThreeCol] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
+    // Debounced search
     useEffect(() => {
-        axios.get('http://localhost:3000/food')
-            .then(res => {
-                setFoods(res.data);
-            })
-            .catch(err => {
-                console.error('Error fetching foods:', err);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, []);
+        const delayDebounce = setTimeout(() => {
+            setLoading(true);
+            axios
+                .get('http://localhost:3000/food', {
+                    params: { search: searchTerm }
+                })
+                .then(res => {
+                    setFoods(res.data);
+                })
+                .catch(err => {
+                    console.error('Error fetching foods:', err);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }, 500); // debounce for 500ms
+
+        return () => clearTimeout(delayDebounce);
+    }, [searchTerm]);
 
     const toggleLayout = () => {
         setIsThreeCol(prev => !prev);
@@ -28,8 +38,6 @@ const AvailableFoods = () => {
     const gridColsClass = isThreeCol
         ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
         : 'grid-cols-1 sm:grid-cols-2';
-
-    if (loading) return <p className="text-center mt-10 text-gray-600">Loading foods...</p>;
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
@@ -43,7 +51,20 @@ const AvailableFoods = () => {
                 </button>
             </div>
 
-            {foods.length === 0 ? (
+            {/* Search box (no form used) */}
+            <div className="mb-6">
+                <input
+                    type="text"
+                    placeholder="Search food by name..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="input input-bordered w-full max-w-md"
+                />
+            </div>
+
+            {loading ? (
+                <p className="text-center mt-10 text-gray-600">Loading foods...</p>
+            ) : foods.length === 0 ? (
                 <p className="text-center text-gray-500 text-lg">No available foods found.</p>
             ) : (
                 <div className={`grid ${gridColsClass} gap-8`}>
