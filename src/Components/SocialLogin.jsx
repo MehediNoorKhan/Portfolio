@@ -17,7 +17,7 @@ const SocialLogin = ({ from }) => {
         const userInfo = {
           name: user.displayName,
           email: user.email,
-          photourl: user.photo,
+          photourl: user.photoURL,
         };
 
         // Save user info to MongoDB

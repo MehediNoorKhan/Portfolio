@@ -8,11 +8,12 @@ import Register from "../Components/Register";
 import AddFood from "../Components/AddFood";
 import PrivateRoute from "../Components/PrivateRoute";
 import ManageMyFoods from "../Components/ManageMyFoods";
-import MyFoodRequest from "../Components/MyFoodRequest";
 import AvaialableFoods from "../Components/AvaialableFoods";
 import FoodDetails from "../Components/FoodDetails";
 import axios from "axios";
 import ManageFood from "../Components/ManageFood";
+import axiosSecure from "../Hooks/axiosSecure";
+import MyFoodRequest from "../Components/MyFoodRequest";
 
 
 export const router = createBrowserRouter([
@@ -43,10 +44,25 @@ export const router = createBrowserRouter([
                 path: '/availablefoods',
                 Component: AvaialableFoods
             },
+
             {
                 path: '/myfoodrequest',
                 element: <PrivateRoute><MyFoodRequest></MyFoodRequest></PrivateRoute>
             },
+
+            {
+                path: '/myfoodrequest',
+                element: (
+                    <PrivateRoute>
+                        <MyFoodRequest />
+                    </PrivateRoute>
+                ),
+                loader: async () => {
+                    const res = await axiosSecure.get('/myfoodrequest');
+                    return res.data;
+                }
+            },
+
             {
                 path: '/fooddetails/:id',
                 element: <FoodDetails />,

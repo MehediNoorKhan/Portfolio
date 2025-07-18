@@ -13,51 +13,54 @@ import {
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userData, setUserData] = useState([]);
+    const [userData, setUserData] = useState([]); // To store users data from backend
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
 
-    // Set axios base URL
-    axios.defaults.baseURL = 'http://localhost:3000';
-
+    // Register new user
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
+    // Login user
     const login = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     };
 
+    // Google Sign-In
     const googleSignIn = () => {
         setLoading(true);
         return signInWithPopup(auth, googleProvider);
     };
 
+    // Logout
     const logout = () => {
         setLoading(true);
         return signOut(auth);
     };
 
+    // Fetch users data from backend
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('/users'); // Using baseURL now
+            const response = await axios.get('http://localhost:3000/users'); // Replace with your backend URL
             setUserData(response.data);
         } catch (error) {
             console.error('Failed to fetch users:', error);
         }
     };
 
+    // Observe auth state
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
 
             if (currentUser) {
-                await fetchUsers();
+                fetchUsers();
             } else {
-                setUserData([]);
+                setUserData([]); // Clear user data on logout
             }
         });
 
