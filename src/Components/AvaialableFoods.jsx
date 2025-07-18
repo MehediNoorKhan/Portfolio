@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 const AvailableFoods = () => {
     const [foods, setFoods] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isThreeCol, setIsThreeCol] = useState(true); // Toggle state for layout
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,16 +21,32 @@ const AvailableFoods = () => {
             });
     }, []);
 
+    const toggleLayout = () => {
+        setIsThreeCol(prev => !prev);
+    };
+
+    const gridColsClass = isThreeCol
+        ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+        : 'grid-cols-1 sm:grid-cols-2';
+
     if (loading) return <p className="text-center mt-10 text-gray-600">Loading foods...</p>;
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            <h1 className="text-4xl font-extrabold text-center text-indigo-700 mb-12">Available Foods</h1>
+            <div className="flex items-center justify-between mb-6">
+                <h1 className="text-4xl font-extrabold text-indigo-700">Available Foods</h1>
+                <button
+                    onClick={toggleLayout}
+                    className="bg-emerald-500 text-white px-4 py-2 my-4 cursor-pointer rounded-lg hover:bg-amber-600 transition"
+                >
+                    {isThreeCol ? 'Switch to 2 Columns' : 'Switch to 3 Columns'}
+                </button>
+            </div>
 
             {foods.length === 0 ? (
                 <p className="text-center text-gray-500 text-lg">No available foods found.</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div className={`grid ${gridColsClass} gap-8`}>
                     {foods.map(food => (
                         <div
                             key={food._id}
