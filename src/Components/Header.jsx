@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthContext";
-import Loader from "./Loader"; // ✅ Import your loader component
+import Loader from "./Loader";
 
 const Header = () => {
-    const { user, userData, logout, loading } = useContext(AuthContext); // ✅ Destructure loading
-
+    const { user, userData, logout, loading } = useContext(AuthContext);
 
     const handlelogout = () => {
         logout()
@@ -29,10 +28,7 @@ const Header = () => {
                 Available Foods
             </NavLink>
 
-            <NavLink
-                to={"/addfood"}
-                className="mx-2 text-base hover:text-blue-600"
-            >
+            <NavLink to={"/addfood"} className="mx-2 text-base hover:text-blue-600">
                 Add Food
             </NavLink>
             <NavLink
@@ -47,7 +43,6 @@ const Header = () => {
             >
                 My Food Request
             </NavLink>
-
         </>
     );
 

@@ -19,20 +19,21 @@ const Login = () => {
         const password = form.password.value;
 
         login(email, password)
-            .then(() => {
+            .then((result) => {
                 setLoading(false);
                 toast.success("Login successful!");
-                navigate(from);
+
+                const user = result.user;
+                const lastVisited = localStorage.getItem(`lastVisited-${user.email}`);
+
+                navigate(lastVisited || "/"); 
             })
             .catch((error) => {
                 setLoading(false);
-                let message = "Login failed.";
-                if (error.code === "auth/wrong-password") message = "Incorrect password.";
-                else if (error.code === "auth/user-not-found") message = "User not found.";
-                toast.error(message);
-                navigate('/login');
+                toast.error("Invalid credentials");
             });
     };
+
 
 
     return (
