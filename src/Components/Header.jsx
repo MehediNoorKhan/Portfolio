@@ -6,9 +6,6 @@ import Loader from "./Loader"; // ✅ Import your loader component
 const Header = () => {
     const { user, userData, logout, loading } = useContext(AuthContext); // ✅ Destructure loading
 
-    if (loading) {
-        return <Loader />; // ✅ Show Loader if loading is true
-    }
 
     const handlelogout = () => {
         logout()
@@ -31,28 +28,26 @@ const Header = () => {
             >
                 Available Foods
             </NavLink>
-            {user && (
-                <>
-                    <NavLink
-                        to={"/addfood"}
-                        className="mx-2 text-base hover:text-blue-600"
-                    >
-                        Add Food
-                    </NavLink>
-                    <NavLink
-                        to={"/manage-food"}
-                        className="mx-2 text-base hover:text-blue-600"
-                    >
-                        Manage Foods
-                    </NavLink>
-                    <NavLink
-                        to={"/myfoodrequest"}
-                        className="mx-2 text-base hover:text-blue-600"
-                    >
-                        My Food Request
-                    </NavLink>
-                </>
-            )}
+
+            <NavLink
+                to={"/addfood"}
+                className="mx-2 text-base hover:text-blue-600"
+            >
+                Add Food
+            </NavLink>
+            <NavLink
+                to={"/manage-food"}
+                className="mx-2 text-base hover:text-blue-600"
+            >
+                Manage Foods
+            </NavLink>
+            <NavLink
+                to={"/myfoodrequest"}
+                className="mx-2 text-base hover:text-blue-600"
+            >
+                My Food Request
+            </NavLink>
+
         </>
     );
 
