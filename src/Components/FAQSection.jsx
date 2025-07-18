@@ -56,7 +56,9 @@ const FAQSection = () => {
             they accept. Below are some common ways to donate:
           </p>
           <ul className="list-disc pl-5 text-gray-700 space-y-2">
-            <li>Check local food banks’ accepted items list before donating.</li>
+            <li>
+              Check local food banks’ accepted items list before donating.
+            </li>
             <li>Organize community drives to gather support efficiently.</li>
             <li>Ensure all items are unopened and within expiration date.</li>
             <li>Cash donations often help cover food and operational needs.</li>
@@ -80,9 +82,8 @@ const FAQSection = () => {
                 >
                   {item.question}
                   <FaChevronDown
-                    className={`ml-2 transform transition-transform duration-300 ${
-                      openIndex === index ? "rotate-180" : ""
-                    }`}
+                    className={`ml-2 transform transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
                 {openIndex === index && (

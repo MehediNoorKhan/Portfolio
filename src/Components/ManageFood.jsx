@@ -1,275 +1,37 @@
-// import React, { useContext, useEffect, useState } from 'react';
-// import axiosSecure from '../Hooks/axiosSecure'; // Axios with Firebase token interceptor
-// import { AuthContext } from '../Provider/AuthContext';
-// import { toast } from 'react-toastify';
-// import Swal from 'sweetalert2';
+import React, { useContext, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axiosSecure from "../Hooks/axiosSecure.js"; // ✅ Ensure this hook exists
+import { AuthContext } from "../Provider/AuthContext"; // ✅ Adjust to your actual AuthContext path
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
-// const ManageFood = () => {
-//     const { user } = useContext(AuthContext);
-//     const [foods, setFoods] = useState([]);
-//     const [loading, setLoading] = useState(true);
-
-//     // For update modal
-//     const [showUpdateModal, setShowUpdateModal] = useState(false);
-//     const [currentFood, setCurrentFood] = useState(null);
-//     const [updateForm, setUpdateForm] = useState({
-//         foodName: '',
-//         foodImage: '',
-//         foodQuantity: '',
-//         pickupLocation: '',
-//         expiredDateTime: '',
-//         additionalNotes: '',
-//     });
-
-//     // Fetch foods for logged-in user securely
-//     useEffect(() => {
-//         if (user?.email) {
-//             axiosSecure
-//                 .get(`/manage-food?email=${user.email}`)
-//                 .then((res) => setFoods(res.data))
-//                 .catch(() => toast.error('Failed to fetch your foods'))
-//                 .finally(() => setLoading(false));
-//         }
-//     }, [user]);
-
-//     // Handle delete with confirmation
-//     const handleDelete = (id) => {
-//         Swal.fire({
-//             title: 'Are you sure?',
-//             text: 'You will lose this food data!',
-//             icon: 'warning',
-//             showCancelButton: true,
-//             confirmButtonColor: '#d33',
-//             cancelButtonColor: '#3085d6',
-//             confirmButtonText: 'Yes, delete it!',
-//         }).then((result) => {
-//             if (result.isConfirmed) {
-//                 axiosSecure
-//                     .delete(`/food/${id}`)
-//                     .then(() => {
-//                         toast.success('Food deleted successfully');
-//                         setFoods((prev) => prev.filter((food) => food._id !== id));
-//                     })
-//                     .catch(() => toast.error('Failed to delete food'));
-//             }
-//         });
-//     };
-
-//     // Open update modal and fill form
-//     const openUpdateModal = (food) => {
-//         setCurrentFood(food);
-//         setUpdateForm({
-//             foodName: food.foodName,
-//             foodImage: food.foodImage,
-//             foodQuantity: food.foodQuantity,
-//             pickupLocation: food.pickupLocation,
-//             expiredDateTime: food.expiredDateTime,
-//             additionalNotes: food.additionalNotes || '',
-//         });
-//         setShowUpdateModal(true);
-//     };
-
-//     // Handle form input changes
-//     const handleUpdateChange = (e) => {
-//         setUpdateForm((prev) => ({
-//             ...prev,
-//             [e.target.name]: e.target.value,
-//         }));
-//     };
-
-//     // Submit update form
-//     const handleUpdateSubmit = (e) => {
-//         e.preventDefault();
-
-//         axiosSecure
-//             .put(`/food/${currentFood._id}`, updateForm)
-//             .then(() => {
-//                 toast.success('Food updated successfully');
-//                 setFoods((prev) =>
-//                     prev.map((food) =>
-//                         food._id === currentFood._id ? { ...food, ...updateForm } : food
-//                     )
-//                 );
-//                 setShowUpdateModal(false);
-//             })
-//             .catch(() => toast.error('Failed to update food'));
-//     };
-
-//     if (loading) {
-//         return <p className="text-center mt-10">Loading your foods...</p>;
-//     }
-
-//     return (
-//         <div className="max-w-7xl mx-auto p-4">
-//             <h1 className="text-3xl font-bold mb-6 text-center">Manage Your Foods</h1>
-
-//             {foods.length === 0 ? (
-//                 <p className="text-center text-gray-500">You haven't added any foods yet.</p>
-//             ) : (
-//                 <div className="overflow-x-auto">
-//                     <table className="table w-full table-zebra">
-//                         <thead>
-//                             <tr>
-//                                 <th>Food Name</th>
-//                                 <th>Quantity</th>
-//                                 <th>Pickup Location</th>
-//                                 <th>Expire Date</th>
-//                                 <th>Actions</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>
-//                             {foods.map((food) => (
-//                                 <tr key={food._id}>
-//                                     <td>{food.foodName}</td>
-//                                     <td>{food.foodQuantity}</td>
-//                                     <td>{food.pickupLocation}</td>
-//                                     <td>{new Date(food.expiredDateTime).toLocaleString()}</td>
-//                                     <td className="space-x-2">
-//                                         <button
-//                                             className="btn btn-sm btn-warning"
-//                                             onClick={() => openUpdateModal(food)}
-//                                         >
-//                                             Update
-//                                         </button>
-//                                         <button
-//                                             className="btn btn-sm btn-error"
-//                                             onClick={() => handleDelete(food._id)}
-//                                         >
-//                                             Delete
-//                                         </button>
-//                                     </td>
-//                                 </tr>
-//                             ))}
-//                         </tbody>
-//                     </table>
-//                 </div>
-//             )}
-
-//             {/* Update Modal */}
-//             {showUpdateModal && (
-//                 <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-//                     <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
-//                         <h2 className="text-xl font-semibold mb-4">Update Food</h2>
-//                         <form onSubmit={handleUpdateSubmit} className="space-y-4">
-//                             <label className="block">
-//                                 Food Name
-//                                 <input
-//                                     type="text"
-//                                     name="foodName"
-//                                     value={updateForm.foodName}
-//                                     onChange={handleUpdateChange}
-//                                     required
-//                                     className="input input-bordered w-full"
-//                                 />
-//                             </label>
-
-//                             <label className="block">
-//                                 Food Image URL
-//                                 <input
-//                                     type="text"
-//                                     name="foodImage"
-//                                     value={updateForm.foodImage}
-//                                     onChange={handleUpdateChange}
-//                                     required
-//                                     className="input input-bordered w-full"
-//                                 />
-//                             </label>
-
-//                             <label className="block">
-//                                 Food Quantity
-//                                 <input
-//                                     type="number"
-//                                     name="foodQuantity"
-//                                     value={updateForm.foodQuantity}
-//                                     onChange={handleUpdateChange}
-//                                     required
-//                                     className="input input-bordered w-full"
-//                                 />
-//                             </label>
-
-//                             <label className="block">
-//                                 Pickup Location
-//                                 <input
-//                                     type="text"
-//                                     name="pickupLocation"
-//                                     value={updateForm.pickupLocation}
-//                                     onChange={handleUpdateChange}
-//                                     required
-//                                     className="input input-bordered w-full"
-//                                 />
-//                             </label>
-
-//                             <label className="block">
-//                                 Expired Date/Time
-//                                 <input
-//                                     type="datetime-local"
-//                                     name="expiredDateTime"
-//                                     value={new Date(updateForm.expiredDateTime).toISOString().slice(0, 16)}
-//                                     onChange={handleUpdateChange}
-//                                     required
-//                                     className="input input-bordered w-full"
-//                                 />
-//                             </label>
-
-//                             <label className="block">
-//                                 Additional Notes
-//                                 <textarea
-//                                     name="additionalNotes"
-//                                     value={updateForm.additionalNotes}
-//                                     onChange={handleUpdateChange}
-//                                     className="textarea textarea-bordered w-full"
-//                                 />
-//                             </label>
-
-//                             <div className="flex justify-end space-x-2">
-//                                 <button
-//                                     type="button"
-//                                     onClick={() => setShowUpdateModal(false)}
-//                                     className="btn btn-outline"
-//                                 >
-//                                     Cancel
-//                                 </button>
-//                                 <button type="submit" className="btn btn-primary">
-//                                     Update
-//                                 </button>
-//                             </div>
-//                         </form>
-//                     </div>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default ManageFood;
-
-
-import React, { useContext, useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axiosSecure from '../Hooks/axiosSecure'; // Axios instance with Firebase token interceptor
-import { AuthContext } from '../Provider/AuthContext';
-import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
+const Spinner = () => (
+    <div className="flex justify-center items-center h-40">
+        <span className="loading loading-spinner loading-lg text-emerald-600"></span>
+    </div>
+);
 
 const ManageFood = () => {
+
+    const navigate = useNavigate();
+
     const { user } = useContext(AuthContext);
     const queryClient = useQueryClient();
 
-    // Update modal states
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [currentFood, setCurrentFood] = useState(null);
     const [updateForm, setUpdateForm] = useState({
-        foodName: '',
-        foodImage: '',
-        foodQuantity: '',
-        pickupLocation: '',
-        expiredDateTime: '',
-        additionalNotes: '',
+        foodName: "",
+        foodImage: "",
+        foodQuantity: "",
+        pickupLocation: "",
+        expiredDateTime: "",
+        additionalNotes: "",
     });
 
-    // Fetch foods query
     const { data: foods = [], isLoading } = useQuery({
-        queryKey: ['manage-food', user?.email],
+        queryKey: ["manage-food", user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/manage-food?email=${user.email}`);
@@ -277,51 +39,44 @@ const ManageFood = () => {
         },
     });
 
-    // Delete mutation
     const deleteMutation = useMutation({
         mutationFn: async (id) => {
             await axiosSecure.delete(`/food/${id}`);
         },
         onSuccess: (_, id) => {
-            toast.success('Food deleted successfully');
-            // Refetch foods after delete
-            queryClient.setQueryData(['manage-food', user.email], (oldData) =>
-                oldData.filter((food) => food._id !== id)
+            toast.success("Food deleted successfully");
+            queryClient.setQueryData(["manage-food", user.email], (old) =>
+                old.filter((item) => item._id !== id)
             );
         },
-        onError: () => {
-            toast.error('Failed to delete food');
-        },
+        onError: () => toast.error("Failed to delete food"),
     });
 
-    // Update mutation
     const updateMutation = useMutation({
         mutationFn: async ({ id, updatedData }) => {
             await axiosSecure.put(`/food/${id}`, updatedData);
         },
         onSuccess: (_, { id, updatedData }) => {
-            toast.success('Food updated successfully');
-            // Update local cache
-            queryClient.setQueryData(['manage-food', user.email], (oldData) =>
-                oldData.map((food) => (food._id === id ? { ...food, ...updatedData } : food))
+            toast.success("Food updated successfully");
+            queryClient.setQueryData(["manage-food", user.email], (old) =>
+                old.map((item) =>
+                    item._id === id ? { ...item, ...updatedData } : item
+                )
             );
             setShowUpdateModal(false);
         },
-        onError: () => {
-            toast.error('Failed to update food');
-        },
+        onError: () => toast.error("Failed to update food"),
     });
 
-    // Delete handler with confirmation
     const handleDelete = (id) => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'You will lose this food data!',
-            icon: 'warning',
+            title: "Are you sure?",
+            text: "You will lose this food entry!",
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
                 deleteMutation.mutate(id);
@@ -329,7 +84,6 @@ const ManageFood = () => {
         });
     };
 
-    // Open update modal and set form values
     const openUpdateModal = (food) => {
         setCurrentFood(food);
         setUpdateForm({
@@ -338,70 +92,74 @@ const ManageFood = () => {
             foodQuantity: food.foodQuantity,
             pickupLocation: food.pickupLocation,
             expiredDateTime: food.expiredDateTime,
-            additionalNotes: food.additionalNotes || '',
+            additionalNotes: food.additionalNotes || "",
         });
         setShowUpdateModal(true);
     };
 
-    // Handle form input changes
     const handleUpdateChange = (e) => {
-        setUpdateForm((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
+        const { name, value } = e.target;
+        setUpdateForm((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Submit update form
     const handleUpdateSubmit = (e) => {
         e.preventDefault();
         if (!currentFood?._id) return;
-
-        updateMutation.mutate({
-            id: currentFood._id,
-            updatedData: updateForm,
-        });
+        updateMutation.mutate({ id: currentFood._id, updatedData: updateForm });
     };
 
-    if (isLoading) {
-        return <p className="text-center mt-10">Loading your foods...</p>;
-    }
+    if (isLoading) return <Spinner />;
 
     return (
         <div className="max-w-7xl mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-6 text-center">Manage Your Foods</h1>
+            <h1 className="text-3xl font-bold mb-6 text-center text-emerald-600">
+                Manage Your Foods
+            </h1>
 
             {foods.length === 0 ? (
-                <p className="text-center text-gray-500">You haven't added any foods yet.</p>
+                <div className="text-center space-y-4">
+                    <p className="text-gray-500 text-lg">
+                        You haven't added any food yet.
+                    </p>
+                    <button
+                        onClick={() => navigate('/addfood')}
+                        className="inline-block cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-6 rounded shadow transition duration-300"
+                    >
+                        Add Food
+                    </button>
+                </div>
             ) : (
                 <div className="overflow-x-auto">
-                    <table className="table w-full table-zebra">
-                        <thead>
-                            <tr>
-                                <th>Food Name</th>
-                                <th>Quantity</th>
-                                <th>Pickup Location</th>
-                                <th>Expire Date</th>
-                                <th>Actions</th>
+                    <table className="table w-full bg-white shadow-md rounded-md">
+                        <thead className="bg-emerald-100 text-emerald-800">
+                            <tr className="text-center">
+                                <th className="py-3 px-4 text-left">Food Name</th>
+                                <th className="py-3 px-4">Quantity</th>
+                                <th className="py-3 px-4">Pickup Location</th>
+                                <th className="py-3 px-4">Expire Date</th>
+                                <th className="py-3 px-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {foods.map((food) => (
-                                <tr key={food._id}>
-                                    <td>{food.foodName}</td>
-                                    <td>{food.foodQuantity}</td>
-                                    <td>{food.pickupLocation}</td>
-                                    <td>{new Date(food.expiredDateTime).toLocaleString()}</td>
-                                    <td className="space-x-2">
+                                <tr key={food._id} className="border-t hover:bg-emerald-50">
+                                    <td className="py-2 px-4">{food.foodName}</td>
+                                    <td className="text-center">{food.foodQuantity}</td>
+                                    <td className="text-center">{food.pickupLocation}</td>
+                                    <td className="text-center">
+                                        {new Date(food.expiredDateTime).toLocaleString()}
+                                    </td>
+                                    <td className="flex gap-2 justify-center py-2">
                                         <button
-                                            className="btn btn-sm btn-warning"
                                             onClick={() => openUpdateModal(food)}
+                                            className="btn btn-xs bg-yellow-400 hover:bg-yellow-500 text-white"
                                         >
                                             Update
                                         </button>
                                         <button
-                                            className="btn btn-sm btn-error"
                                             onClick={() => handleDelete(food._id)}
                                             disabled={deleteMutation.isLoading}
+                                            className="btn btn-xs bg-red-500 hover:bg-red-600 text-white"
                                         >
                                             Delete
                                         </button>
@@ -413,87 +171,58 @@ const ManageFood = () => {
                 </div>
             )}
 
-            {/* Update Modal */}
+            {/* Update Modal (unchanged) */}
             {showUpdateModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-                    <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
-                        <h2 className="text-xl font-semibold mb-4">Update Food</h2>
-                        <form onSubmit={handleUpdateSubmit} className="space-y-4">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                        <h2 className="text-xl font-semibold mb-4 text-emerald-700">
+                            Update Food
+                        </h2>
+                        <form onSubmit={handleUpdateSubmit} className="space-y-3">
+                            {[
+                                { label: "Food Name", name: "foodName", type: "text" },
+                                { label: "Image URL", name: "foodImage", type: "text" },
+                                { label: "Quantity", name: "foodQuantity", type: "number" },
+                                {
+                                    label: "Pickup Location",
+                                    name: "pickupLocation",
+                                    type: "text",
+                                },
+                                {
+                                    label: "Expire Date/Time",
+                                    name: "expiredDateTime",
+                                    type: "datetime-local",
+                                    value: new Date(updateForm.expiredDateTime)
+                                        .toISOString()
+                                        .slice(0, 16),
+                                },
+                            ].map(({ label, name, type, value }) => (
+                                <label key={name} className="block">
+                                    <span className="text-sm font-medium">{label}</span>
+                                    <input
+                                        name={name}
+                                        type={type}
+                                        value={value ?? updateForm[name]}
+                                        onChange={handleUpdateChange}
+                                        required
+                                        className="input input-bordered w-full mt-1"
+                                    />
+                                </label>
+                            ))}
                             <label className="block">
-                                Food Name
-                                <input
-                                    type="text"
-                                    name="foodName"
-                                    value={updateForm.foodName}
-                                    onChange={handleUpdateChange}
-                                    required
-                                    className="input input-bordered w-full"
-                                />
-                            </label>
-
-                            <label className="block">
-                                Food Image URL
-                                <input
-                                    type="text"
-                                    name="foodImage"
-                                    value={updateForm.foodImage}
-                                    onChange={handleUpdateChange}
-                                    required
-                                    className="input input-bordered w-full"
-                                />
-                            </label>
-
-                            <label className="block">
-                                Food Quantity
-                                <input
-                                    type="number"
-                                    name="foodQuantity"
-                                    value={updateForm.foodQuantity}
-                                    onChange={handleUpdateChange}
-                                    required
-                                    className="input input-bordered w-full"
-                                />
-                            </label>
-
-                            <label className="block">
-                                Pickup Location
-                                <input
-                                    type="text"
-                                    name="pickupLocation"
-                                    value={updateForm.pickupLocation}
-                                    onChange={handleUpdateChange}
-                                    required
-                                    className="input input-bordered w-full"
-                                />
-                            </label>
-
-                            <label className="block">
-                                Expired Date/Time
-                                <input
-                                    type="datetime-local"
-                                    name="expiredDateTime"
-                                    value={new Date(updateForm.expiredDateTime).toISOString().slice(0, 16)}
-                                    onChange={handleUpdateChange}
-                                    required
-                                    className="input input-bordered w-full"
-                                />
-                            </label>
-
-                            <label className="block">
-                                Additional Notes
+                                <span className="text-sm font-medium">Additional Notes</span>
                                 <textarea
                                     name="additionalNotes"
                                     value={updateForm.additionalNotes}
                                     onChange={handleUpdateChange}
-                                    className="textarea textarea-bordered w-full"
+                                    className="textarea textarea-bordered w-full mt-1"
                                 />
                             </label>
-
-                            <div className="flex justify-end space-x-2">
+                            <div className="flex justify-end space-x-3 mt-4">
                                 <button
                                     type="button"
-                                    onClick={() => setShowUpdateModal(false)}
                                     className="btn btn-outline"
+                                    onClick={() => setShowUpdateModal(false)}
                                 >
                                     Cancel
                                 </button>

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import auth from '../Firebase/firebase.init'; // Adjust path if needed
+import auth from '../Firebase/firebase.init'; 
 import { getIdToken } from 'firebase/auth';
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000', // 🔁 Replace with your actual backend URL
+    baseURL: 'http://localhost:3000',
 });
 
 axiosSecure.interceptors.request.use(async (config) => {

@@ -13,7 +13,7 @@ import {
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userData, setUserData] = useState([]); // To store users data from backend
+    const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
 

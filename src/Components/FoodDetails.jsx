@@ -14,8 +14,6 @@ const FoodDetails = () => {
     if (!food) {
         return <div className="text-center mt-10">Food data not found.</div>;
     }
-
-    // Handler to submit the food request
     const handleRequest = async () => {
         const requestData = {
             foodId: food._id,
@@ -31,12 +29,12 @@ const FoodDetails = () => {
         };
 
         try {
-            // 1. Update food status to "requested"
+            // Update food status to "requested"
             await axios.patch(`http://localhost:3000/food/${food._id}`, {
                 foodStatus: "requested",
             });
 
-            // 2. Save request data in requestedfoods collection
+            // Save request data in requestedfoods collection
             await axios.post("http://localhost:3000/requestedfoods", requestData);
 
             Swal.fire({

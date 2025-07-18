@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import Loader from "./Loader";
 
 const FeaturedFoods = () => {
     const [featuredFoods, setFeaturedFoods] = useState([]);
@@ -9,35 +10,34 @@ const FeaturedFoods = () => {
 
     useEffect(() => {
         setLoading(true);
-        // Assuming your backend supports query params for limit, status and sort
+
         axios
-            .get('http://localhost:3000/food', {
-                params: {
-                    foodStatus: 'available',
-                    limit: 6,
-                    sortBy: 'foodQuantity',
-                    sortOrder: 'desc',
-                },
-            })
+            .get("http://localhost:3000/featured-foods")
             .then((res) => {
                 setFeaturedFoods(res.data);
             })
             .catch((err) => {
-                console.error('Error fetching featured foods:', err);
+                console.error("Error fetching featured foods:", err);
             })
             .finally(() => {
                 setLoading(false);
             });
     }, []);
 
-    if (loading) return <p className="text-center mt-10">Loading featured foods...</p>;
+    if (loading) return <Loader />;
 
     if (featuredFoods.length === 0)
-        return <p className="text-center mt-10 text-gray-500">No featured foods available.</p>;
+        return (
+            <p className="text-center mt-10 text-gray-500">
+                No featured foods available.
+            </p>
+        );
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            <h2 className="text-3xl font-bold mb-6 text-center text-indigo-700">Featured Foods</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center text-indigo-700">
+                Featured Foods
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {featuredFoods.map((food) => (
                     <div
@@ -59,10 +59,10 @@ const FeaturedFoods = () => {
                                 <strong>Pickup Location:</strong> {food.pickupLocation}
                             </p>
                             <p className="text-gray-600 text-sm mt-auto">
-                                <strong>Expires:</strong>{' '}
+                                <strong>Expires:</strong>{" "}
                                 {new Date(food.expiredDateTime).toLocaleString(undefined, {
-                                    dateStyle: 'medium',
-                                    timeStyle: 'short',
+                                    dateStyle: "medium",
+                                    timeStyle: "short",
                                 })}
                             </p>
                         </div>
@@ -72,8 +72,8 @@ const FeaturedFoods = () => {
 
             <div className="text-center mt-8">
                 <button
-                    onClick={() => navigate('/availablefoods')}
-                    className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
+                    onClick={() => navigate("/availablefoods")}
+                    className="px-6 py-3 cursor-pointer bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
                 >
                     Show All
                 </button>

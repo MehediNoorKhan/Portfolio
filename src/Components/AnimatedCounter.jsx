@@ -1,6 +1,6 @@
-import React from 'react';
-import CountUp from 'react-countup';
-import { useInView } from 'react-intersection-observer';
+import React from "react";
+import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
 
 const CounterSection = () => {
     const { ref, inView } = useInView({
@@ -9,10 +9,10 @@ const CounterSection = () => {
     });
 
     const counters = [
-        { label: 'Total Donors', value: 1200 },
-        { label: 'Food Requests', value: 3450 },
-        { label: 'Happy Recipients', value: 980 },
-        { label: 'Active Volunteers', value: 150 },
+        { label: "Total Donors", value: 1200 },
+        { label: "Food Requests", value: 3450 },
+        { label: "Happy Recipients", value: 980 },
+        { label: "Active Volunteers", value: 150 },
     ];
 
     return (
@@ -33,11 +33,11 @@ const CounterSection = () => {
                             {inView ? (
                                 <CountUp
                                     end={item.value}
-                                    duration={3} // slower count
+                                    duration={4} 
                                     delay={0.2}
                                 />
                             ) : (
-                                '0'
+                                "0"
                             )}
                         </h3>
                         <p className="text-lg font-medium text-gray-700">{item.label}</p>

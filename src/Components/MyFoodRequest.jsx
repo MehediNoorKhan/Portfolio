@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import axiosSecure from '../Hooks/axiosSecure'; // axios instance with token
-import { AuthContext } from '../Provider/AuthContext';
-// import useAuth from '../Hooks/useAuth'; // Auth context
+import { useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import axiosSecure from "../Hooks/axiosSecure"; // axios instance with token
+import { AuthContext } from "../Provider/AuthContext";
+import Loader from "./Loader";
 
 const MyFoodRequest = () => {
     const { user } = useContext(AuthContext);
@@ -11,51 +12,83 @@ const MyFoodRequest = () => {
     useEffect(() => {
         axiosSecure
             .get(`/myfoodrequest?email=${user.email}`)
-            .then(res => {
+            .then((res) => {
                 setRequests(res.data);
                 setLoading(false);
             })
-            .catch(err => {
-                console.error('Error fetching food requests:', err);
+            .catch((err) => {
+                console.error("Error fetching food requests:", err);
                 setLoading(false);
             });
-
     }, [user]);
 
-    if (loading) return <p className="text-center mt-10 text-lg">Loading...</p>;
+    if (loading) return <Loader />;
 
     return (
-        <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">My Food Requests</h2>
+        <motion.div
+            className="p-6 max-w-7xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+        >
+            <h2 className="text-3xl font-extrabold text-teal-700 mb-8 text-center">
+                My Food Requests
+            </h2>
+
             {requests.length === 0 ? (
-                <p>No food requests found.</p>
+                <p className="text-center text-gray-500 text-lg">
+                    No food requests found.
+                </p>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="table w-full">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th>#</th>
-                                <th>Donor Name</th>
-                                <th>Pickup Location</th>
-                                <th>Expire Date</th>
-                                <th>Request Date</th>
+                <div className="overflow-x-auto rounded-lg shadow-lg border border-teal-200">
+                    <table className="min-w-full divide-y divide-gray-200 table-auto">
+                        <thead className="bg-teal-100">
+                            <tr>
+                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
+                                    #
+                                </th>
+                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
+                                    Donor Name
+                                </th>
+                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
+                                    Pickup Location
+                                </th>
+                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
+                                    Expire Date
+                                </th>
+                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
+                                    Request Date
+                                </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="bg-white divide-y divide-gray-100">
                             {requests.map((item, index) => (
-                                <tr key={item._id || index} className="hover:bg-gray-50">
-                                    <td>{index + 1}</td>
-                                    <td>{item.foodDonatorName}</td>
-                                    <td>{item.pickupLocation}</td>
-                                    <td>{item.expireDate}</td>
-                                    <td>{item.requestDate}</td>
+                                <tr
+                                    key={item._id || index}
+                                    className="hover:bg-teal-50 transition-colors duration-200 cursor-pointer"
+                                >
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {index + 1}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        {item.foodDonatorName}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        {item.pickupLocation}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        {item.expireDate}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        {item.requestDate}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
             )}
-        </div>
+        </motion.div>
     );
 };
 
