@@ -7,11 +7,22 @@ import { RouterProvider } from "react-router";
 import { router } from "./Router/Route";
 import AuthProvider from "./Provider/AuthProvider";
 
+// ✅ TanStack Query imports
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+
+// ✅ Create a Query Client
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>
 );
