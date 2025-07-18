@@ -12,6 +12,7 @@ import MyFoodRequest from "../Components/MyFoodRequest";
 import AvaialableFoods from "../Components/AvaialableFoods";
 import FoodDetails from "../Components/FoodDetails";
 import axios from "axios";
+import ManageFood from "../Components/ManageFood";
 
 
 export const router = createBrowserRouter([
@@ -43,26 +44,30 @@ export const router = createBrowserRouter([
                 Component: AvaialableFoods
             },
             {
-                path: '/managemyfoods',
-                element: <PrivateRoute><ManageMyFoods></ManageMyFoods></PrivateRoute>
-            },
-            {
                 path: '/myfoodrequest',
                 element: <PrivateRoute><MyFoodRequest></MyFoodRequest></PrivateRoute>
             },
             {
-        path: '/fooddetails/:id',
-        element: <FoodDetails />,
-        loader: async ({ params }) => {
-          try {
-            const res = await axios.get(`http://localhost:3000/food/${params.id}`);
-            return res.data;
-          } catch (error) {
-            console.error('Error fetching food details:', error);
-            throw new Response('Failed to fetch food details', { status: 500 });
-          }
-        },
-      },
+                path: '/fooddetails/:id',
+                element: <FoodDetails />,
+                loader: async ({ params }) => {
+                    try {
+                        const res = await axios.get(`http://localhost:3000/food/${params.id}`);
+                        return res.data;
+                    } catch (error) {
+                        console.error('Error fetching food details:', error);
+                        throw new Response('Failed to fetch food details', { status: 500 });
+                    }
+                },
+            },
+            {
+                path: '/manage-food',
+                element: (
+                    <PrivateRoute>
+                        <ManageFood></ManageFood>
+                    </PrivateRoute>
+                ),
+            },
         ],
     },
 ]);

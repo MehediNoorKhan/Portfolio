@@ -24,7 +24,7 @@ const Header = () => {
             {user && (
                 <>
                     <NavLink to={'/addfood'} className="mx-2 text-base hover:text-blue-600">Add Food</NavLink>
-                    <NavLink to={'/managemyfoods'} className="mx-2 text-base hover:text-blue-600">Manage Foods</NavLink>
+                    <NavLink to={'/manage-food'} className="mx-2 text-base hover:text-blue-600">Manage Foods</NavLink>
                     <NavLink to={'/myfoodrequest'} className="mx-2 text-base hover:text-blue-600">My Food Request</NavLink>
                 </>
             )}
