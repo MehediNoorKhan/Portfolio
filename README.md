@@ -1,12 +1,68 @@
-# React + Vite
+# FoodShare - A Food Donation and Sharing Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🌐 Live Website
 
-Currently, two official plugins are available:
+**Frontend:** [https://assignment11-b015f.web.app](https://assignment11-b015f.web.app)  
+**Backend:** [https://ass11github.vercel.app](https://ass11github.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🎯 Project Purpose
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**FoodShare** is a web application that allows individuals and organizations to share surplus food with those in need. Users can donate food, request food, manage listings, and help reduce food waste in the community.
+
+---
+
+## 🚀 Key Features
+
+- 🔐 **User Authentication** (Firebase)
+- 🍱 **Add, Edit & Manage Food Listings**
+- 🧾 **Request Food with Confirmation Modal**
+- 📦 **My Food Requests Page**
+- 🧑‍🍳 **User Profiles**
+- 🌗 **Dark & Light Theme Toggle**
+- 🎛 **2-Column / 3-Column View Toggle**
+- 🔍 **Search, Filter & Sort Available Foods**
+- 💾 **Protected Routes with Firebase Token & Axios Interceptor**
+- 📊 **Like Button with Persistent Count**
+- 💬 **Toast Notifications**
+- 🖼️ **Responsive UI Design**
+
+---
+
+## 🛠️ Tech Stack
+
+### 🧑‍💻 Frontend
+
+- **React** (with Vite)
+- **React Router DOM**
+- **Firebase Authentication**
+- **Tailwind CSS**
+- **DaisyUI**
+- **Axios**
+- **React Icons**
+- **SweetAlert2**
+- **Moment.js**
+- **Framer Motion**
+- **AOS (Animate on Scroll)**
+
+### 🧪 Backend
+
+- **Node.js**
+- **Express.js**
+- **MongoDB (with Mongoose)**
+- **Firebase Admin SDK** (for verifying tokens)
+- **CORS**
+- **Dotenv**
+- **Cookie-Parser**
+
+---
+
+## 📦 Installed Packages
+
+### Frontend (`package.json`)
+
+```bash
+npm install react react-dom react-router-dom axios firebase moment react-icons sweetalert2 aos framer-motion
+npm install -D tailwindcss daisyui autoprefixer postcss
+```

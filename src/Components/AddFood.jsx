@@ -40,7 +40,7 @@ const AddFood = () => {
         };
 
         try {
-            const res = await axios.post("http://localhost:3000/food", newFood);
+            const res = await axios.post("https://ass11github.vercel.app/food", newFood);
             if (res.data.insertedId) {
                 toast.success("Food added successfully!");
                 setFormData({

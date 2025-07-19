@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
     // Fetch users data from backend
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/users'); // Replace with your backend URL
+            const response = await axios.get('https://ass11github.vercel.app/users'); // Replace with your backend URL
             setUserData(response.data);
         } catch (error) {
             console.error('Failed to fetch users:', error);

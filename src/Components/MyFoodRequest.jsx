@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import axiosSecure from "../Hooks/axiosSecure"; // axios instance with token
+import axiosSecure from "../Hooks/axiosSecure";
 import { AuthContext } from "../Provider/AuthContext";
 import Loader from "./Loader";
 
@@ -31,7 +31,7 @@ const MyFoodRequest = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
         >
-            <h2 className="text-3xl font-extrabold text-teal-700 mb-8 text-center">
+            <h2 className="text-3xl mt-8 font-extrabold text-green-700 mb-8 text-center">
                 My Food Requests
             </h2>
 
@@ -40,47 +40,51 @@ const MyFoodRequest = () => {
                     No food requests found.
                 </p>
             ) : (
-                <div className="overflow-x-auto rounded-lg shadow-lg border border-teal-200">
-                    <table className="min-w-full divide-y divide-gray-200 table-auto">
-                        <thead className="bg-teal-100">
+                <div className="overflow-x-auto mt-10 border border-green-200 shadow-md rounded-lg">
+                    <table className="min-w-full table-auto divide-y divide-gray-200 rounded-lg overflow-hidden">
+                        <thead className="bg-green-100 text-green-800">
                             <tr>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
-                                    #
-                                </th>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
-                                    Donor Name
-                                </th>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
-                                    Pickup Location
-                                </th>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
-                                    Expire Date
-                                </th>
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-teal-800">
-                                    Request Date
-                                </th>
+                                <th className="px-4 py-3 text-sm font-semibold text-center">No.</th>
+                                <th className="px-4 py-3 text-sm font-semibold text-center">Food Name</th>
+                                <th className="px-4 py-3 text-sm font-semibold text-center">Donor Name</th>
+                                <th className="px-4 py-3 text-sm font-semibold text-center">Donor Email</th>
+                                <th className="px-4 py-3 text-sm font-semibold text-center">Pickup Location</th>
+                                <th className="px-4 py-3 text-sm font-semibold text-center">Expire Date</th>
+                                <th className="px-4 py-3 text-sm font-semibold text-center">Request Date</th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-100">
                             {requests.map((item, index) => (
                                 <tr
                                     key={item._id || index}
-                                    className="hover:bg-teal-50 transition-colors duration-200 cursor-pointer"
+                                    className="hover:bg-green-50 transition-colors duration-200"
                                 >
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {index + 1}
+                                    <td className="px-4 py-3 text-center text-sm text-gray-800">{index + 1}</td>
+                                    <td className="px-4 py-3 text-center text-sm text-gray-800">{item.foodName}</td>
+                                    <td className="px-4 py-3 text-center text-sm text-gray-800">{item.foodDonatorName}</td>
+                                    <td className="px-4 py-3 text-center text-sm text-gray-800">{item.foodDonatorEmail}</td>
+                                    <td className="px-4 py-3 text-center text-sm text-gray-800">{item.pickupLocation}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-700">
+                                        {new Date(item.expireDate).toLocaleString("en-GB", {
+                                            day: "2-digit",
+                                            month: "2-digit",
+                                            year: "numeric",
+                                            hour: "numeric",
+                                            minute: "2-digit",
+                                            second: "2-digit",
+                                            hour12: true,
+                                        })}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        {item.foodDonatorName}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        {item.pickupLocation}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        {item.expireDate}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        {item.requestDate}
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-700">
+                                        {new Date(item.requestDate).toLocaleString("en-GB", {
+                                            day: "2-digit",
+                                            month: "2-digit",
+                                            year: "numeric",
+                                            hour: "numeric",
+                                            minute: "2-digit",
+                                            second: "2-digit",
+                                            hour12: true,
+                                        })}
                                     </td>
                                 </tr>
                             ))}

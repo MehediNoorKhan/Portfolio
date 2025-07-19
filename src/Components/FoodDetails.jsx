@@ -30,12 +30,12 @@ const FoodDetails = () => {
 
         try {
             // Update food status to "requested"
-            await axios.patch(`http://localhost:3000/food/${food._id}`, {
+            await axios.patch(`https://ass11github.vercel.app/food/${food._id}`, {
                 foodStatus: "requested",
             });
 
             // Save request data in requestedfoods collection
-            await axios.post("http://localhost:3000/requestedfoods", requestData);
+            await axios.post("https://ass11github.vercel.app/requestedfoods", requestData);
 
             Swal.fire({
                 icon: "success",
@@ -55,7 +55,10 @@ const FoodDetails = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow mt-10">
+        <div className="max-w-3xl mx-auto p-6 bg-gradient-to-br from-white via-slate-100 to-indigo-100 border border-indigo-200 rounded-xl shadow-lg mt-10">
+
+
+
             <img
                 src={food.foodImage}
                 alt={food.foodName}
@@ -87,7 +90,7 @@ const FoodDetails = () => {
 
             <button
                 onClick={() => setShowModal(true)}
-                className="mt-6 bg-indigo-600 text-white px-5 py-2 rounded hover:bg-indigo-700"
+                className="mt-6 bg-indigo-600 text-white px-5 py-2 cursor-pointer rounded hover:bg-indigo-700"
             >
                 Request
             </button>

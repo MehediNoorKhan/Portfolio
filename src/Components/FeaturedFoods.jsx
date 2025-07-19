@@ -13,7 +13,7 @@ const FeaturedFoods = () => {
         setLoading(true);
 
         axios
-            .get("http://localhost:3000/featured-foods")
+            .get("https://ass11github.vercel.app/featured-foods")
             .then((res) => {
                 setFeaturedFoods(res.data);
             })

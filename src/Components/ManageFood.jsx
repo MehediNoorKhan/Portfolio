@@ -112,7 +112,7 @@ const ManageFood = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-6 text-center text-emerald-600">
+            <h1 className="text-3xl font-bold mb-6 mt-8 text-center text-emerald-600">
                 Manage Your Foods
             </h1>
 
@@ -129,37 +129,51 @@ const ManageFood = () => {
                     </button>
                 </div>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="table w-full bg-white shadow-md rounded-md">
-                        <thead className="bg-emerald-100 text-emerald-800">
-                            <tr className="text-center">
-                                <th className="py-3 px-4 text-left">Food Name</th>
-                                <th className="py-3 px-4">Quantity</th>
-                                <th className="py-3 px-4">Pickup Location</th>
-                                <th className="py-3 px-4">Expire Date</th>
-                                <th className="py-3 px-4">Actions</th>
+                <div className="overflow-x-auto mt-10 rounded-lg shadow-lg border border-emerald-200">
+                    <table className="min-w-full divide-y divide-gray-300 table-auto">
+                        <thead className="bg-emerald-600 text-white">
+                            <tr className="text-center text-sm uppercase tracking-wider">
+                                <th className="py-3 px-4 text-center">No.</th>
+                                <th className="py-3 px-4 text-center">Food Name</th>
+                                <th className="py-3 px-4 text-center">Quantity</th>
+                                <th className="py-3 px-4 text-center">Pickup Location</th>
+                                <th className="py-3 px-4 text-center">Expire Date</th>
+                                <th className="py-3 px-4 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {foods.map((food) => (
-                                <tr key={food._id} className="border-t hover:bg-emerald-50">
-                                    <td className="py-2 px-4">{food.foodName}</td>
-                                    <td className="text-center">{food.foodQuantity}</td>
-                                    <td className="text-center">{food.pickupLocation}</td>
-                                    <td className="text-center">
-                                        {new Date(food.expiredDateTime).toLocaleString()}
+                            {foods.map((food, index) => (
+                                <tr
+                                    key={food._id}
+                                    className={`hover:bg-emerald-50 transition-colors duration-200 ${index !== foods.length - 1 ? 'border-b border-gray-200' : ''
+                                        }`}
+                                >
+                                    <td className="py-3 px-4 text-sm text-center">{index + 1}</td>
+                                    <td className="py-3 px-4 text-sm text-center">{food.foodName}</td>
+                                    <td className="text-center text-sm text-center">{food.foodQuantity}</td>
+                                    <td className="text-center text-sm text-center">{food.pickupLocation}</td>
+                                    <td className="text-center text-sm text-center">
+                                        {new Date(food.expiredDateTime).toLocaleString("en-GB", {
+                                            day: "2-digit",
+                                            month: "2-digit",
+                                            year: "numeric",
+                                            hour: "numeric",
+                                            minute: "2-digit",
+                                            second: "2-digit",
+                                            hour12: true,
+                                        })}
                                     </td>
-                                    <td className="flex gap-2 justify-center py-2">
+                                    <td className="flex gap-2 pl-1 justify-center py-2">
                                         <button
                                             onClick={() => openUpdateModal(food)}
-                                            className="btn btn-xs bg-yellow-400 hover:bg-yellow-500 text-white"
+                                            className="btn btn-xs bg-yellow-400 hover:bg-yellow-500 text-white transition-colors duration-150"
                                         >
                                             Update
                                         </button>
                                         <button
                                             onClick={() => handleDelete(food._id)}
                                             disabled={deleteMutation.isLoading}
-                                            className="btn btn-xs bg-red-500 hover:bg-red-600 text-white"
+                                            className="btn btn-xs bg-red-500 hover:bg-red-600 text-white transition-colors duration-150"
                                         >
                                             Delete
                                         </button>
@@ -169,6 +183,8 @@ const ManageFood = () => {
                         </tbody>
                     </table>
                 </div>
+
+
             )}
 
             {/* Update Modal (unchanged) */}

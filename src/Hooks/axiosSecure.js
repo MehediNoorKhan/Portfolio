@@ -1,9 +1,10 @@
 import axios from 'axios';
-import auth from '../Firebase/firebase.init'; 
+import auth from '../Firebase/firebase.init';
 import { getIdToken } from 'firebase/auth';
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://ass11github.vercel.app',
+    withCredentials: true,
 });
 
 axiosSecure.interceptors.request.use(async (config) => {

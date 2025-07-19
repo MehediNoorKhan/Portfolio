@@ -8,14 +8,15 @@ const AvailableFoods = () => {
     const [loading, setLoading] = useState(true);
     const [isThreeCol, setIsThreeCol] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const [sortOrder, setSortOrder] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
             setLoading(true);
             axios
-                .get("http://localhost:3000/food", {
-                    params: { search: searchTerm },
+                .get("https://ass11github.vercel.app/food", {
+                    params: { search: searchTerm, sortOrder },
                 })
                 .then((res) => setFoods(res.data))
                 .catch((err) => console.error("Error fetching foods:", err))
@@ -23,13 +24,11 @@ const AvailableFoods = () => {
         }, 500);
 
         return () => clearTimeout(delayDebounce);
-    }, [searchTerm]);
-
-    const toggleLayout = () => setIsThreeCol((prev) => !prev);
+    }, [searchTerm, sortOrder]);
 
     const gridColsClass = isThreeCol
         ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-        : "grid-cols-1 sm:grid-cols-2";
+        : "grid-cols-1 sm:grid-cols-2 md:grid-cols-2";
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-16">
@@ -37,7 +36,8 @@ const AvailableFoods = () => {
                 <h1 className="text-4xl font-extrabold text-indigo-700 tracking-tight">
                     Available Foods
                 </h1>
-                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+
+                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center">
                     <input
                         type="text"
                         placeholder="Search food by name..."
@@ -45,12 +45,38 @@ const AvailableFoods = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="input input-bordered w-full sm:w-64"
                     />
-                    <button
-                        onClick={toggleLayout}
-                        className="bg-cyan-400 text-white px-4 py-2 cursor-pointer rounded-lg hover:bg-amber-600 transition"
+
+                    <select
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value)}
+                        className="cursor-pointer input input-bordered w-full sm:w-auto"
                     >
-                        {isThreeCol ? "2 Columns" : "3 Columns"}
-                    </button>
+                        <option value="" disabled>
+                            Sort By
+                        </option>
+                        <option value="desc">
+                            Newest &#x25BC; {/* ▼ */}
+                        </option>
+                        <option value="asc">
+                            Oldest &#x25B2; {/* ▲ */}
+                        </option>
+                    </select>
+
+                    <div className="inline-flex rounded-lg overflow-hidden border border-gray-400">
+                        <button
+                            onClick={() => setIsThreeCol(true)}
+                            className={`px-4 py-2 text-sm cursor-pointer font-medium transition-colors duration-300 ${isThreeCol ? "bg-indigo-600 text-white" : "bg-white text-gray-700"}`}
+                        >
+                            3 Column View
+                        </button>
+                        <button
+                            onClick={() => setIsThreeCol(false)}
+                            className={`px-4 py-2 text-sm cursor-pointer font-medium transition-colors duration-300 ${!isThreeCol ? "bg-orange-500 text-white" : "bg-white text-gray-700"}`}
+                        >
+                            2 Column View
+                        </button>
+                    </div>
+
                 </div>
             </div>
 
