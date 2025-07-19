@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Loader from "./Loader";
+import { motion } from "framer-motion";
 
 const FeaturedFoods = () => {
     const [featuredFoods, setFeaturedFoods] = useState([]);
@@ -40,9 +41,13 @@ const FeaturedFoods = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {featuredFoods.map((food) => (
-                    <div
+                    <motion.div
                         key={food._id}
-                        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                        className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.3 }}
                     >
                         <img
                             src={food.foodImage}
@@ -65,8 +70,17 @@ const FeaturedFoods = () => {
                                     timeStyle: "short",
                                 })}
                             </p>
+
+                            <div className="mt-4 flex justify-start">
+                                <Link
+                                    to={`/fooddetails/${food._id}`}
+                                    className="bg-green-400 text-white px-4 py-2 rounded-2xl hover:bg-green-700 transition"
+                                >
+                                    View Details
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 

@@ -70,7 +70,7 @@ const FAQSection = () => {
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
           <div className="bg-white rounded-xl shadow-md divide-y">

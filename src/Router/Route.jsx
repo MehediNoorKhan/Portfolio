@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
 
             {
                 path: '/fooddetails/:id',
-                element: <FoodDetails />,
+                element: <PrivateRoute><FoodDetails /></PrivateRoute>,
                 loader: async ({ params }) => {
                     try {
                         const res = await axios.get(`http://localhost:3000/food/${params.id}`);

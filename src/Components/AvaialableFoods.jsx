@@ -47,7 +47,7 @@ const AvailableFoods = () => {
                     />
                     <button
                         onClick={toggleLayout}
-                        className="bg-cyan-400 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition"
+                        className="bg-cyan-400 text-white px-4 py-2 cursor-pointer rounded-lg hover:bg-amber-600 transition"
                     >
                         {isThreeCol ? "2 Columns" : "3 Columns"}
                     </button>
