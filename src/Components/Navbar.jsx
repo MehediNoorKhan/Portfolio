@@ -91,19 +91,6 @@ const Navbar = () => {
                             </Link>
                         </li>
                     ))}
-                    <li className="w-full flex justify-center">
-                        <Link
-                            to="contacts"       // Matches your section id
-                            smooth
-                            duration={500}
-                            offset={-70}         // Adjusts scroll offset for fixed navbar
-                            className="px-4 py-2 rounded-md text-white cursor-pointer font-medium transition-all duration-300 shadow-md"
-                            style={{ background: buttonGradient }}
-                            onClick={() => setNavOpen(false)}
-                        >
-                            Hire Me
-                        </Link>
-                    </li>
 
                 </ul>
             )}
