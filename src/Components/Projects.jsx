@@ -96,7 +96,7 @@ const Projects = () => {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-lg pl-1 sm:text-xl font-bold mb-2 text-gray-600">
+                                    <h3 className="text-lg pl-1 sm:text-xl font-bold mb-2 text-gray-700">
                                         {title}
                                     </h3>
 
@@ -135,7 +135,7 @@ const Projects = () => {
                                             href={github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-2 rounded transition-colors duration-300 text-gray-600 hover:text-white hover:bg-gray-700"
+                                            className="p-2 rounded transition-colors duration-300 text-gray-800 hover:text-white hover:bg-gray-900"
                                             whileHover={{ scale: 1.1 }}
                                         >
                                             <FaGithub />
