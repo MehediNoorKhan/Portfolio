@@ -96,14 +96,14 @@ const Projects = () => {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-lg pl-1 sm:text-xl font-bold mb-2 text-gray-900">
+                                    <h3 className="text-lg pl-1 sm:text-xl font-bold mb-2 text-gray-600">
                                         {title}
                                     </h3>
 
                                     {/* Description */}
                                     <div className="relative flex-1 group">
                                         <p
-                                            className="text-gray-700 overflow-hidden text-ellipsis text-sm sm:text-base"
+                                            className="text-gray-500 overflow-hidden text-ellipsis text-sm sm:text-base"
                                             style={{
                                                 display: "-webkit-box",
                                                 WebkitLineClamp: 4,
@@ -135,7 +135,7 @@ const Projects = () => {
                                             href={github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-2 rounded transition-colors duration-300 text-gray-800 hover:text-white hover:bg-gray-800"
+                                            className="p-2 rounded transition-colors duration-300 text-gray-600 hover:text-white hover:bg-gray-700"
                                             whileHover={{ scale: 1.1 }}
                                         >
                                             <FaGithub />
