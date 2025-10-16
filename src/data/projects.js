@@ -1,6 +1,6 @@
 import project1Img from "../../assets/project1.jpg"; // Roommate Finder image
 import project2Img from "../../assets/project2.jpeg"; // Food Zone image
-import project3Img from "../../assets/project3.png"; // ConvoNest image
+import project3Img from "../../assets/project3.jpg"; // ConvoNest image
 
 export const projects = [
     {

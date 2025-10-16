@@ -30,7 +30,7 @@ const About = () => {
                 >
                     <p className="mb-6 sm:mb-8 text-gray-600">
                         I'm <span className="text-pink-500 font-semibold">Mehedi Noor Khan</span>, a passionate{" "}
-                        <span className="text-purple-500 font-semibold">Full Stack Web Developer</span>. I specialize in building
+                        <span className="text-purple-500 font-semibold">Frontend Developer</span>. I specialize in building
                         responsive, modern, and user-friendly web applications. I focus on clean, maintainable code and love solving
                         complex problems.
                     </p>
