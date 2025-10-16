@@ -92,8 +92,24 @@ const Navbar = () => {
                         </li>
                     ))}
 
+                    {/* Download CV Button */}
+                    <motion.a
+                        href="https://drive.google.com/file/d/1HLkFtSUh6LWZ1in4BuLwQSMJO1g8WPO4/view?usp=sharing"
+                        target="_blank"
+                        rel="noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        className="px-4 sm:px-5 py-2 sm:py-3 rounded-md text-white font-semibold transition-transform shadow-lg text-sm sm:text-base mt-4"
+                        style={{
+                            background: buttonGradient,
+                            boxShadow: "0 0 16px rgba(60, 130, 246, 0.6)",
+                        }}
+                        onClick={() => setNavOpen(false)}
+                    >
+                        Download CV
+                    </motion.a>
                 </ul>
             )}
+
         </div>
     );
 };
