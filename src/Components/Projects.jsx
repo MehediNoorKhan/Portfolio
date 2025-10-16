@@ -96,7 +96,9 @@ const Projects = () => {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-lg sm:text-xl font-bold mb-2">{title}</h3>
+                                    <h3 className="text-lg pl-1 sm:text-xl font-bold mb-2 text-gray-900">
+                                        {title}
+                                    </h3>
 
                                     {/* Description */}
                                     <div className="relative flex-1 group">
@@ -117,27 +119,24 @@ const Projects = () => {
 
                                     {/* Bottom Links */}
                                     <div className="flex justify-between items-center mt-auto">
+                                        {/* Visit Site */}
                                         <motion.a
                                             href={link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 font-semibold px-3 py-1 rounded transition-colors duration-300 text-sm sm:text-base"
-                                            whileHover={{
-                                                backgroundColor: "#E0E7FF",
-                                                color: "#1E3A8A",
-                                            }}
+                                            className="flex items-center gap-2 font-semibold px-3 py-1 rounded transition-colors duration-300 text-blue-700 hover:text-white hover:bg-blue-500"
+                                            whileHover={{ scale: 1.05 }}
                                         >
-                                            Visit Site <FaExternalLinkAlt />
+                                            Visit Site <FaExternalLinkAlt className="text-blue-700 group-hover:text-white" />
                                         </motion.a>
+
+                                        {/* GitHub */}
                                         <motion.a
                                             href={github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="p-2 rounded transition-colors duration-300"
-                                            whileHover={{
-                                                backgroundColor: "#C7D2FE",
-                                                color: "#3730A3",
-                                            }}
+                                            className="p-2 rounded transition-colors duration-300 text-gray-800 hover:text-white hover:bg-gray-800"
+                                            whileHover={{ scale: 1.1 }}
                                         >
                                             <FaGithub />
                                         </motion.a>
