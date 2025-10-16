@@ -96,7 +96,7 @@ const Projects = () => {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-lg pl-1 sm:text-xl font-bold mb-2 text-gray-700">
+                                    <h3 className="text-lg pl-1 sm:text-xl font-bold mb-2 text-gray-800">
                                         {title}
                                     </h3>
 
