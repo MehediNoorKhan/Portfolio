@@ -13,12 +13,20 @@ const About = () => {
 
     return (
         <section id="about" className="px-4 sm:px-6 md:px-12 py-12 md:py-16 bg-white">
-            <h2
+            {/* <h2
                 className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold bg-gradient-to-r from-[#4ade80] via-[#3b82f6] to-[#a78bfa] bg-clip-text text-transparent"
                 style={{ backgroundSize: "13% auto" }}
             >
                 About
+            </h2> */}
+            <h2
+                className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold text-blue-500"
+
+            >
+                About
             </h2>
+
+
 
             <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-12 font-sans">
                 {/* Left Text */}

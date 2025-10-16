@@ -6,12 +6,19 @@ const Testimonials = () => {
         <section id="testimonials" className="py-12 bg-white">
             {/* Heading */}
             <div className="text-center mb-12 sm:mb-16 px-4">
-                <h2
+                {/* <h2
                     className="text-3xl sm:text-4xl md:text-5xl mb-4 font-bold bg-gradient-to-r from-[#4ade80] via-[#3b82f6] to-[#a78bfa] bg-clip-text text-transparent"
                     style={{ backgroundSize: "20% auto" }}
                 >
                     Testimonials
+                </h2> */}
+                <h2
+                    className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold text-blue-500"
+
+                >
+                    Testimonials
                 </h2>
+
                 <p className="text-xl sm:text-2xl text-gray-600 mt-2">What Others Say</p>
                 <p className="text-gray-500 mt-1 text-sm sm:text-base">
                     Real feedback from real people who trusted me with their projects.

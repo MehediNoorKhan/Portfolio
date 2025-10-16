@@ -8,7 +8,14 @@ const Education = () => {
             className="flex flex-col items-center px-4 sm:px-6 md:px-12 py-12"
         >
             {/* Heading */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10 sm:mb-12 text-center bg-gradient-to-r from-[#4ade80] via-[#3b82f6] to-[#a78bfa] bg-clip-text text-transparent">
+            {/* <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10 sm:mb-12 text-center bg-gradient-to-r from-[#4ade80] via-[#3b82f6] to-[#a78bfa] bg-clip-text text-transparent">
+                Education
+            </h2> */}
+
+            <h2
+                className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold text-blue-500"
+
+            >
                 Education
             </h2>
 

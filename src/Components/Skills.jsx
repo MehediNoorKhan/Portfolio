@@ -6,9 +6,16 @@ const Skills = () => {
         <section id="skills" className="py-12 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Heading */}
-                <h2
+                {/* <h2
                     className="text-3xl sm:text-4xl md:text-5xl mb-8 text-center pb-2 font-bold bg-gradient-to-r from-[#4ade80] via-[#3b82f6] to-[#a78bfa] bg-clip-text text-transparent"
                     style={{ backgroundSize: "14% auto" }}
+                >
+                    Skills
+                </h2> */}
+
+                <h2
+                    className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold text-blue-500"
+
                 >
                     Skills
                 </h2>
