@@ -137,7 +137,7 @@ const Contact = () => {
                             {/* Submit Button */}
                             <button
                                 type="submit"
-                                className="mt-4 sm:mt-6 w-full py-2.5 sm:py-3 font-semibold text-white rounded-md bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:opacity-90 hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                                className="mt-4 sm:mt-6 w-full py-2.5 sm:py-3 font-semibold text-white btn btn-primary rounded-md hover:opacity-90 hover:scale-105 transition-all duration-300 text-sm sm:text-base"
                             >
                                 Send Message
                             </button>

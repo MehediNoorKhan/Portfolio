@@ -23,8 +23,6 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const buttonGradient = "linear-gradient(to right, #4ade80, #3b82f6, #a78bfa)";
-
     return (
         <div
             className={`fixed w-full z-50 backdrop-blur-lg transition-all duration-500 ${scrolled ? "shadow-md" : ""
@@ -35,7 +33,7 @@ const Navbar = () => {
         >
             <div className="flex justify-between items-center px-4 sm:px-6 md:px-10 py-4 max-w-7xl mx-auto">
                 {/* Logo */}
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-500">Mehedi</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-[#1E90FF]">Mehedi</h1>
 
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex space-x-6 lg:space-x-8 items-center">
@@ -61,8 +59,7 @@ const Navbar = () => {
                         smooth
                         duration={500}
                         offset={-70}
-                        className="px-4 py-2 rounded-md text-white cursor-pointer font-medium transform transition-transform duration-300 hover:scale-110 shadow-md"
-                        style={{ background: buttonGradient }}
+                        className="btn btn-primary text-white font-medium"
                     >
                         Hire Me
                     </Link>
@@ -91,13 +88,14 @@ const Navbar = () => {
                             </Link>
                         </li>
                     ))}
+
+                    {/* Download CV Button (Mobile) */}
                     <li className="w-full flex justify-center">
                         <a
                             href="https://drive.google.com/file/d/1HLkFtSUh6LWZ1in4BuLwQSMJO1g8WPO4/view?usp=sharing"
                             target="_blank"
                             rel="noreferrer"
-                            className="px-4 py-2 rounded-md text-white font-medium cursor-pointer shadow-md transition-transform duration-300 hover:scale-105"
-                            style={{ background: buttonGradient }}
+                            className="btn btn-primary text-white font-medium"
                             onClick={() => setNavOpen(false)}
                         >
                             Download CV

@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import { FaAward, FaProjectDiagram, FaUsers, FaClock } from "react-icons/fa";
 
 const About = () => {
-    const buttonGradient = "linear-gradient(to right, #4ade80, #3b82f6, #a78bfa)";
-
     const features = [
         { icon: FaProjectDiagram, title: "Projects Done", value: "12", bg: "bg-blue-400" },
         { icon: FaUsers, title: "Clients", value: "2", bg: "bg-pink-400" },
@@ -12,21 +10,10 @@ const About = () => {
     ];
 
     return (
-        <section id="about" className="px-4 sm:px-6 md:px-12 py-12 md:py-16 bg-white">
-            {/* <h2
-                className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold bg-gradient-to-r from-[#4ade80] via-[#3b82f6] to-[#a78bfa] bg-clip-text text-transparent"
-                style={{ backgroundSize: "13% auto" }}
-            >
-                About
-            </h2> */}
-            <h2
-                className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold text-blue-500"
-
-            >
+        <section id="about" className="px-4 sm:px-6 md:px-12 py-12 md:py-16 bg-white text-gray-500">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl mb-10 text-center pb-2 font-bold text-blue-500">
                 About
             </h2>
-
-
 
             <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-12 font-sans">
                 {/* Left Text */}
@@ -34,49 +21,41 @@ const About = () => {
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="flex-1 text-base sm:text-lg md:text-xl leading-relaxed text-center md:text-left"
+                    className="flex-1 text-base sm:text-lg md:text-xl leading-relaxed text-center md:text-left text-gray-500"
                 >
-                    <p className="mb-6 sm:mb-8 text-gray-600">
-                        I'm <span className="text-pink-500 font-semibold">Mehedi Noor Khan</span>, a passionate{" "}
-                        <span className="text-purple-500 font-semibold">Frontend Developer</span>. I specialize in building
+                    <p className="mb-6 sm:mb-8">
+                        I'm <span className="font-bold text-gray-500">Mehedi Noor Khan</span>, a passionate{" "}
+                        <span className="font-bold text-gray-500">Frontend Developer</span>. I specialize in building
                         responsive, modern, and user-friendly web applications. I focus on clean, maintainable code and love solving
                         complex problems.
                     </p>
 
+                    {/* Buttons */}
                     <div className="flex gap-3 sm:gap-4 justify-center md:justify-start flex-wrap">
+                        {/* Download CV Button */}
                         <motion.a
                             href="https://drive.google.com/file/d/1HLkFtSUh6LWZ1in4BuLwQSMJO1g8WPO4/view?usp=sharing"
                             target="_blank"
                             rel="noreferrer"
                             whileHover={{ scale: 1.05 }}
-                            className="px-4 sm:px-5 py-2 sm:py-3 rounded-md text-white font-semibold transition-transform shadow-lg text-sm sm:text-base"
-                            style={{
-                                background: buttonGradient,
-                                boxShadow: "0 0 16px rgba(60, 130, 246, 0.6)",
-                            }}
+                            className="btn btn-primary text-white font-semibold text-sm sm:text-base"
                         >
                             Download CV
                         </motion.a>
+
+                        {/* Hire Me Button */}
                         <motion.a
+                            href="#projects"
                             whileHover={{ scale: 1.05 }}
-                            className="px-4 sm:px-5 py-2 sm:py-3 rounded-md text-white font-semibold transition-transform shadow-lg text-sm sm:text-base"
-                            style={{
-                                background: buttonGradient,
-                                boxShadow: "0 0 16px rgba(60, 130, 246, 0.6)",
-                            }}
+                            className="btn btn-outline btn-primary font-semibold text-sm sm:text-base"
                         >
-                            <a
-                                href="#projects"
-
-                            >Hire Me</a>
-
+                            Hire Me
                         </motion.a>
-
                     </div>
                 </motion.div>
 
                 {/* Right Features */}
-                <motion.div className="flex-1 grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6">
+                <motion.div className="flex-1 grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6 text-gray-500">
                     {features.map((feature, index) => {
                         const Icon = feature.icon;
                         return (
@@ -94,7 +73,7 @@ const About = () => {
                                 >
                                     <Icon />
                                 </motion.div>
-                                <h3 className="text-sm sm:text-base font-semibold text-gray-700">{feature.title}</h3>
+                                <h3 className="text-sm sm:text-base font-semibold text-gray-500">{feature.title}</h3>
                                 <p className="text-base sm:text-lg font-bold text-gray-500">{feature.value}</p>
                             </motion.div>
                         );

@@ -6,12 +6,12 @@ import "../styles.css";
 
 const Hero = () => {
     const skills = [
-        { name: "HTML5", gradient: "bg-gradient-to-r from-orange-400 via-red-400 to-pink-500" },
-        { name: "CSS3", gradient: "bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-500" },
-        { name: "JavaScript", gradient: "bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500" },
-        { name: "Tailwind", gradient: "bg-gradient-to-r from-teal-400 via-cyan-400 to-blue-500" },
-        { name: "React", gradient: "bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-500" },
-        { name: "Nextjs", gradient: "bg-gradient-to-r from-gray-700 via-gray-900 to-black" },
+        { name: "HTML5" },
+        { name: "CSS3" },
+        { name: "JavaScript" },
+        { name: "Tailwind" },
+        { name: "React" },
+        { name: "Next.js" },
     ];
 
     return (
@@ -20,6 +20,7 @@ const Hero = () => {
 
                 {/* Left Side: Text */}
                 <div className="flex-1 text-center md:text-left space-y-4">
+
                     {/* Available for work */}
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
@@ -92,7 +93,7 @@ const Hero = () => {
                         {skills.map((skill, idx) => (
                             <span
                                 key={idx}
-                                className={`px-3 py-1 rounded-full text-white text-sm sm:text-xs md:text-sm font-medium shadow-md ${skill.gradient} whitespace-nowrap`}
+                                className="px-3 py-1 rounded-full text-white text-sm sm:text-xs md:text-sm font-medium shadow-md bg-blue-500 hover:bg-blue-600 transition-all duration-300 whitespace-nowrap"
                             >
                                 {skill.name}
                             </span>
@@ -106,12 +107,9 @@ const Hero = () => {
                         transition={{ delay: 1.2, duration: 0.6 }}
                         className="pt-4 flex justify-center md:justify-start"
                     >
-                        <a
-                            href="#projects"
-                            className="px-6 py-2 sm:py-3 rounded-md text-white font-semibold shadow-lg transform transition-transform duration-300 hover:scale-105 bg-gradient-to-r from-green-400 via-blue-400 to-purple-500 text-sm sm:text-base"
-                        >
+                        <button className="btn btn-outline btn-primary">
                             View My Work
-                        </a>
+                        </button>
                     </motion.div>
 
                     {/* Social Icons */}
